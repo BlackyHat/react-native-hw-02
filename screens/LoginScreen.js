@@ -52,6 +52,7 @@ const Login = () => {
                 onChangeText={emailHandler}
                 placeholder="Адресa електронної пошти"
                 style={styles.input}
+                onFocus={() => setIsKeyboardShow(true)}
               />
               <View style={styles.showPasscontainer}>
                 <TextInput
@@ -60,6 +61,7 @@ const Login = () => {
                   placeholder="Пароль"
                   secureTextEntry={isShowPass}
                   style={[styles.inputPassword, styles.input]}
+                  onFocus={() => setIsKeyboardShow(true)}
                 />
                 <TouchableOpacity
                   title={"Показати"}
