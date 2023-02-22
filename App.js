@@ -1,30 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+// import * as Font from "expo-font";
+// import { AppLoading } from "expo";
+
 import Login from "./screens/LoginScreen";
-import Register from "./screens/RegistrationScreen";
+// import Register from "./screens/RegistrationScreen";
 
 const App = () => {
+  // const [isReady, setIsReady] = useState(false);
+
+  // if (!isReady) {
+  //   return (
+  //     <AppLoading startAsync={loadFonts} onFinish={() => setIsReady(true)} />
+  //   );
+  // }
+
   return (
     <>
-      <View style={styles.container}>
-        <Text style={styles.text}>WELCOME TO UKRAINE 2023</Text>
-      </View>
-      {/* <Register /> */}
       <Login />
+      {/* <Register /> */}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: 160,
-    backgroundColor: "#0c0c31",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: "#bebe35",
-    fontSize: 24,
-  },
-});
 
 export default App;

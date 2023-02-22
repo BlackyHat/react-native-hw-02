@@ -8,14 +8,18 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  Pressable,
   Text,
+  ImageBackground,
+  TouchableOpacity,
 } from "react-native";
+
+const image = "../img/photo-bg.jpg";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isShowPass, setIsShowPass] = useState(true);
+  const [isKeyboardShow, setIsKeyboardShow] = useState(false);
 
   const passwordHandler = (text) => setPassword(text);
   const emailHandler = (text) => setEmail(text);
@@ -24,50 +28,63 @@ const Login = () => {
   const onLogin = () => {
     Alert.alert(`User Password: ${password}, Email: ${email}`);
   };
+  const keyBoardHide = () => {
+    setIsKeyboardShow(false);
+    Keyboard.dismiss();
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.registerContainer}>
-        <Text style={styles.registerTitle}>Увійти</Text>
-        <View style={styles.formBox}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+    <TouchableWithoutFeedback onPress={keyBoardHide}>
+      <ImageBackground source={require(image)} style={styles.imageBg}>
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerTitle}>Увійти</Text>
+          <View
+            style={{
+              ...styles.formBox,
+              marginBottom: isKeyboardShow ? 0 : 43,
+            }}
           >
-            <TextInput
-              value={email}
-              onChangeText={emailHandler}
-              placeholder="Адресa електронної пошти"
-              style={styles.input}
-            />
-            <View style={styles.showPasscontainer}>
-              <TextInput
-                value={password}
-                onChangeText={passwordHandler}
-                placeholder="Пароль"
-                secureTextEntry={isShowPass}
-                style={[styles.inputPassword, styles.input]}
-              />
-              <Pressable
-                title={"Показати"}
-                onPress={showPassToggle}
-                accessibilityLabel="Показати пароль"
-                style={styles.showPass}
-              >
-                <Text style={[styles.showPassLabel]}>Показати</Text>
-              </Pressable>
-            </View>
-            <Pressable
-              title={"Увійти"}
-              onPress={onLogin}
-              accessibilityLabel="Увійти"
-              style={styles.button}
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
-              <Text style={styles.buttonLabel}>Увійти</Text>
-            </Pressable>
-            <Text style={styles.link}>Немає акаунту? Зареєструватися</Text>
-          </KeyboardAvoidingView>
+              <TextInput
+                value={email}
+                onChangeText={emailHandler}
+                placeholder="Адресa електронної пошти"
+                style={styles.input}
+              />
+              <View style={styles.showPasscontainer}>
+                <TextInput
+                  value={password}
+                  onChangeText={passwordHandler}
+                  placeholder="Пароль"
+                  secureTextEntry={isShowPass}
+                  style={[styles.inputPassword, styles.input]}
+                />
+                <TouchableOpacity
+                  title={"Показати"}
+                  onPress={showPassToggle}
+                  accessibilityLabel="Показати пароль"
+                  style={styles.showPass}
+                >
+                  <Text style={[styles.showPassLabel]}>Показати</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                title={"Увійти"}
+                onPress={onLogin}
+                accessibilityLabel="Увійти"
+                style={styles.buttonLogin}
+              >
+                <Text style={styles.buttonLoginLabel}>Увійти</Text>
+              </TouchableOpacity>
+              <Text style={styles.linkRegister}>
+                Немає акаунту? Зареєструватися
+              </Text>
+            </KeyboardAvoidingView>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 };
@@ -80,6 +97,12 @@ const styles = StyleSheet.create({
     position: "relative",
     padding: 16,
   },
+  imageBg: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "flex-end",
+  },
+
   registerTitle: {
     fontFamily: "Roboto",
     fontSize: 30,
@@ -95,13 +118,13 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 48,
-    padding: 8,
+    padding: 16,
     backgroundColor: "#F6F6F6",
     marginBottom: 16,
     borderRadius: 8,
     border: "1px solid #E8E8E8",
   },
-  button: {
+  buttonLogin: {
     width: "100%",
     marginTop: 43,
     height: 48,
@@ -113,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6C00",
     marginBottom: 16,
   },
-  buttonLabel: {
+  buttonLoginLabel: {
     color: "white",
     textAlign: "center",
   },
@@ -121,11 +144,12 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 16,
   },
-  link: {
+  linkRegister: {
     color: "#1B4371",
     fontSize: 16,
     textDecorationLine: "underline",
     textAlign: "center",
+    marginBottom: 144,
   },
   showPasscontainer: {
     flex: 1,
@@ -133,7 +157,7 @@ const styles = StyleSheet.create({
     flexWrap: "nowrap",
     width: "100%",
     backgroundColor: "#F6F6F6",
-    marginBottom: 16,
+    marginBottom: 62,
     borderRadius: 8,
     border: "1px solid #E8E8E8",
     position: "relative",
