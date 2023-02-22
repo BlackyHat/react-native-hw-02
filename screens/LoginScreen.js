@@ -117,6 +117,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
+    fontFamily: "Roboto",
+
     height: 48,
     padding: 16,
     backgroundColor: "#F6F6F6",
@@ -139,15 +141,14 @@ const styles = StyleSheet.create({
   buttonLoginLabel: {
     color: "white",
     textAlign: "center",
-  },
-  text: {
-    color: "black",
-    fontSize: 16,
+    fontFamily: "Roboto",
   },
   linkRegister: {
     color: "#1B4371",
     fontSize: 16,
     textDecorationLine: "underline",
+    fontFamily: "Roboto",
+
     textAlign: "center",
     marginBottom: 144,
   },
@@ -164,6 +165,8 @@ const styles = StyleSheet.create({
   },
   showPassLabel: {
     position: "absolute",
+    fontFamily: "Roboto",
+
     top: 12,
     right: 16,
     height: 25,

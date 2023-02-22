@@ -1,25 +1,39 @@
-import React, { useState } from "react";
-// import * as Font from "expo-font";
-// import { AppLoading } from "expo";
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { useCallback } from "react";
+import { useFonts } from "expo-font";
 
 import Login from "./screens/LoginScreen";
-// import Register from "./screens/RegistrationScreen";
+import Register from "./screens/RegistrationScreen";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 const App = () => {
-  // const [isReady, setIsReady] = useState(false);
+  const [fontsLoaded] = useFonts({
+    Roboto: require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+  });
 
-  // if (!isReady) {
-  //   return (
-  //     <AppLoading startAsync={loadFonts} onFinish={() => setIsReady(true)} />
-  //   );
-  // }
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-    <>
-      <Login />
-      {/* <Register /> */}
-    </>
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      {/* <Login /> */}
+      <Register />
+    </View>
   );
 };
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: { flex: 1, fontFamily: "Shantell_Sans" },
+});
